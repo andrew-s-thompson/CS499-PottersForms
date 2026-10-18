@@ -22,7 +22,8 @@ This project is an appropriate size for approximately 8 weeks because it is reas
 Essential functionality involves the ability to fill out forms and submit them. Form elements should be the typical options and some extras like signature boxes and input options to be determined. Additional and optional functionality in this form involve the dynamic loading of forms. The Proof of Concept of the project would be stable with forms being programmed, but dynamic loading would be helpful for Potter's Wheel to deploy additional forms. Another additional feature that would be optional but helpful is rendering the user's submissions as a PDF that matches the paper forms that Potter's Wheel collected, so that online and paper forms are stored in the same format. The most challenging part that I forsee is the PDF rendering portion, which will make it the last priority.
 
 ## Initial UI Sketch
-To be attached here:
+Attached to the repository as initial-drawing.pdf
+[Initial Drawing](initial-drawing.pdf)
 
 ## Initial Data Requirements
 The application should mostly avoid locally storing values. However, it should be able to "load" forms dynamically from some sort of JSON or other format so that a future deployment can utilize a GET call to an API to truly load the forms  that Potter's Wheel has configured dynamically. (Before this is set up, it would be a good use case to load form data from a database, especially if a database is a technical requirement for the project.) Additionally, the completed forms will eventually be submitted to an outside source via a POST API call. However, for the scope of this project, a PostgreSQL database would be a good place to track the submitted form data within the scope of this project. That means that actual form configuration data (types, labels, etc.) and submitted form values are the two types of data that will be needed. 
