@@ -1,0 +1,16 @@
+:root {
+  --teal:        #165F5B;
+}
+
+header {
+    background: var(--teal);
+    padding: 22px 16px calc(22px + 28px);
+    text-align: center;
+}
+
+img {
+    display: block;
+    margin: 0 auto;
+    height: 46px;
+    width: auto;
+}
