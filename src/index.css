@@ -1,7 +1,36 @@
 :root {
   --teal: #165F5B;
+  --text: #585857;
+  --page:  #F4F6F5;
+  --outline:  #DCDEDD;
 }
 
 body {
   margin: 0;
+  background: var(--page);
+}
+
+.panel {
+  background: white;
+  border-radius: 14px;
+  padding: 28px;
+}
+
+.form-card {
+  display: grid;
+  gap: 6px;
+  margin-top: 22px;
+  padding: 16px 18px;
+  border: 1px solid var(--outline);
+  border-radius: 10px;
+}
+
+.form-card-title {
+  font-weight: 600;
+  color: var(--teal);
+}
+
+.form-card-description {
+  font-size: 14px;
+  color: var(--text);
 }
