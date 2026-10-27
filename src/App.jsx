@@ -12,8 +12,9 @@ function App() {
      <Content>
       <h1>Forms</h1>
       <p>Choose a form:</p>
-      <FormCard /> {/* Somehow I will need to pass props with map and so they can be filtered */}
-      <FormCard />
+      {forms.map((form) => (
+        <FormCard key={form.id} form={form} />
+      ))}
     </Content>
     </>
   )
