@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import Header from './components/Header.jsx'
 import './App.css'
 
 function App() {
@@ -6,7 +7,7 @@ function App() {
 
   return (
     <>
-    <h1>Welcome to Potters Forms</h1>
+      <Header />
     </>
   )
 }
