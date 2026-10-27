@@ -10,3 +10,9 @@ header > img {
     height: 46px;
     width: auto;
 }
+
+.site-main {
+  max-width: 1000px;
+  margin: -28px auto 0;
+  padding: 0 16px 64px;
+}
