@@ -1,9 +1,9 @@
 import Header from './Header.jsx'
 
-function Content({ children }) {
+function Content({ onAdminClick, children }) {
   return (
     <>
-      <Header />
+      <Header onAdminClick={onAdminClick} />
       <main className="site-main">{children}</main>
     </>
   )
