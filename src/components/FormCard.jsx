@@ -1,9 +1,9 @@
-function FormCard({ form }) {
+function FormCard({ form, onSelect }) {
   return (
-    <div className="form-card">
+    <button type="button" className="form-card" onClick={() => onSelect(form)}>
       <span className="form-card-title">{form.title}</span>
       <span className="form-card-description">{form.description}</span>
-    </div>
+    </button>
   )
 }
 
