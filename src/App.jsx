@@ -12,10 +12,15 @@ function App() {
 
   if (page === 'admin') {
     return (
-      <Content>
+      <Content page={page} onAdminClick={() => {
+        setPage('forms') 
+        setSelectedForm(null)}}>
         <section className="panel">
-          <h1>Admin</h1>
-          <p>Edit forms</p>
+          <h1>Admin View</h1>
+          <p>Choose a form to edit:</p>
+          {forms.map((form) => (
+            <FormCard key={form.id} form={form} onSelect={setSelectedForm} />
+          ))}
         </section>
       </Content>
     )
@@ -24,7 +29,7 @@ function App() {
   if (selectedForm) {
     return (
       <>
-      <Content onAdminClick={() => {
+      <Content page={page} onAdminClick={() => {
         setPage('admin') 
         setSelectedForm(null)}}>
         <FormPage form={selectedForm} onBack={() => setSelectedForm(null)} />
@@ -36,7 +41,7 @@ function App() {
 
   return (
     <>
-    <Content onAdminClick={() => {
+    <Content page={page} onAdminClick={() => {
         setPage('admin') 
         setSelectedForm(null)}}>
       <section className="panel">
