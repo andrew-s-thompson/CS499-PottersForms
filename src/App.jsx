@@ -10,10 +10,20 @@ function App() {
   const [selectedForm, setSelectedForm] = useState(null)
   const [page, setPage] = useState('forms')
 
+  function togglePage() {
+    if (page === 'forms') {
+      setPage('admin');
+    }
+    else {
+      setPage('forms');
+    };
+    return(page);
+  }
+
   if (page === 'admin') {
     return (
       <Content page={page} onAdminClick={() => {
-        setPage('forms') 
+        togglePage() 
         setSelectedForm(null)}}>
         <section className="panel">
           <h1>Admin View</h1>
@@ -27,22 +37,33 @@ function App() {
   }
 
   if (selectedForm) {
-    return (
-      <>
-      <Content page={page} onAdminClick={() => {
-        setPage('admin') 
-        setSelectedForm(null)}}>
-        <FormPage form={selectedForm} onBack={() => setSelectedForm(null)} />
-      </Content>
-      </>
+    if (page === 'admin') {
+      return (
+        <>
+        <Content page={page} onAdminClick={() => {
+          setPage('forms') 
+          setSelectedForm(null)}}>
+          <FormPage form={selectedForm} onBack={() => setSelectedForm(null)} />
+        </Content>
+        </>
 
+      )
+    }
+    return (
+        <>
+        <Content page={page} onAdminClick={() => {
+          setPage('admin') 
+          setSelectedForm(null)}}>
+          <FormPage form={selectedForm} onBack={() => setSelectedForm(null)} />
+        </Content>
+        </>
     )
   }
 
   return (
     <>
     <Content page={page} onAdminClick={() => {
-        setPage('admin') 
+        togglePage()
         setSelectedForm(null)}}>
       <section className="panel">
       <h1>Forms</h1>

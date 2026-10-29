@@ -5,7 +5,7 @@ function Header({page, onAdminClick}) {
     <header>
       <img src={logo} alt="Potter's Wheel" width="300" height="175" />
       <button type="button" className="header-button" onClick={onAdminClick}>
-        {page ==='admin' ? 'Back Home' : 'Admin View'}
+        {page === 'admin' ? 'Back Home' : 'Admin View'}
       </button>
     </header>
   )

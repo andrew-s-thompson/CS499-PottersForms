@@ -4,6 +4,17 @@ export const forms = [
     title: 'EVSC Grade Release',
     description: "Allow Potter's Wheel to view your student's grades so we can support them in tutoring.",
     category: 'Consent',
+    fields: {
+      field1: {
+        type: 'input',
+        label: 'Full Name:'
+      },
+      field2: {
+        type: 'select',
+        options: 'one, two, three',
+        label: 'Select a number:'
+      }
+    }
   },
   {
     id: 'epn-consent',
