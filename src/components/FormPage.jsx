@@ -1,4 +1,10 @@
 function FormPage({ form, onBack }) {
+  const displayFields = form.fields.map(field =>
+    <div key={field.id}>
+      <label>{field.label}</label>
+      <input type="text" />
+    </div>
+  )
   return (
     <section className="panel form-page">
       <button type="button" className="link-button" onClick={onBack}>
@@ -6,7 +12,7 @@ function FormPage({ form, onBack }) {
       </button>
       <h1>{form.title}</h1>
       <p>{form.description}</p>
-      <input type="text" placeholder="Form Here" />
+      {displayFields}
       <br></br>
       <button>Submit</button>
     </section>

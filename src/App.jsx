@@ -2,6 +2,7 @@ import { useState } from 'react'
 import Header from './components/Header.jsx'
 import FormCard from './components/FormCard.jsx'
 import FormPage from './components/FormPage.jsx'
+import EditFormPage from './components/EditFormPage.jsx'
 import Content from './components/Content.jsx'
 import { forms } from './data/forms.js'
 import './App.css'
@@ -9,6 +10,12 @@ import './App.css'
 function App() {
   const [selectedForm, setSelectedForm] = useState(null)
   const [page, setPage] = useState('forms')
+  const [formList, setFormList] = useState(forms)
+
+  function updateForm(updated) {
+    setFormList(prev => prev.map(f => (f.id === updated.id ? updated : f)))
+    setSelectedForm(updated)
+  }
 
   function togglePage() {
     if (page === 'forms') {
@@ -20,7 +27,7 @@ function App() {
     return(page);
   }
 
-  if (page === 'admin') {
+  if (page === 'admin' && !selectedForm) {
     return (
       <Content page={page} onAdminClick={() => {
         togglePage() 
@@ -28,7 +35,7 @@ function App() {
         <section className="panel">
           <h1>Admin View</h1>
           <p>Choose a form to edit:</p>
-          {forms.map((form) => (
+          {formList.map((form) => (
             <FormCard key={form.id} form={form} onSelect={setSelectedForm} />
           ))}
         </section>
@@ -43,7 +50,7 @@ function App() {
         <Content page={page} onAdminClick={() => {
           setPage('forms') 
           setSelectedForm(null)}}>
-          <FormPage form={selectedForm} onBack={() => setSelectedForm(null)} />
+          <EditFormPage form={selectedForm} onSave={updateForm} onBack={() => setSelectedForm(null)} />
         </Content>
         </>
 
@@ -68,7 +75,7 @@ function App() {
       <section className="panel">
       <h1>Forms</h1>
       <p>Choose a form:</p>
-      {forms.map((form) => (
+      {formList.map((form) => (
         <FormCard key={form.id} form={form} onSelect={setSelectedForm} />
       ))}
       </section>

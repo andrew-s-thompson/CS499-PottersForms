@@ -1,16 +1,24 @@
-function EditFormPage({ form, onBack }) {
+function EditFormPage({ form, onSave, onBack }) {
   function removeItem(key) {
-    // somehow needs to remove the form item from the data/forms.js file using the form state and the key of the item
+    onSave({ ...form, fields: form.fields.filter(f => f.id !== key) })
   }
   function editItem(key, newLabel) {
-    // needs to be able to edit the label on a specific form item
+    onSave({ ...form, fields: form.fields.map(f => f.id === key ? { ...f, label: newLabel } : f) })
   }
   function editOptions(key, options) {
-    // needs to be able to edit the options listed for a select item
+    onSave({ ...form, fields: form.fields.map(f => f.id === key ? { ...f, options: options } : f) })
   }
-  function renderItems(field) {
-    // return needs to return a single <> </> with the form item inside (a label and a fill type, input, number, email, signature, etc.)
+  function renderItems(field, key) {
+    return (
+      <div key={key}>
+        <input type="text" value={field.label} onChange={(e) => editItem(key, e.target.value)} />
+        {field.type === 'select' &&
+          <input type="text" value={field.options} onChange={(e) => editOptions(key, e.target.value)} />}
+        <button type="button" onClick={() => removeItem(key)}>Remove</button>
+      </div>
+    )
   }
+  const displayFields = form.fields.map(field => renderItems(field, field.id))
   return (
     <section className="panel form-page">
       <button type="button" className="link-button" onClick={onBack}>
@@ -18,7 +26,7 @@ function EditFormPage({ form, onBack }) {
       </button>
       <h1>{form.title}</h1>
       <p>{form.description}</p>
-      <input type="text" placeholder="Form Here" />
+      {displayFields}
       <br></br>
       <button>Submit</button>
     </section>
