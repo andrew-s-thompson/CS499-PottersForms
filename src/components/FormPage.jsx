@@ -1,4 +1,8 @@
+import { useRef } from 'react'
+import SignatureCanvas from 'react-signature-canvas'
+
 function FormPage({ form, onBack }) {
+  const signatures = useRef({})
   const displayFields = form.fields.map(field =>
     <div key={field.id}>
       <label htmlFor={field.id}>{field.label}</label>
@@ -8,7 +12,18 @@ function FormPage({ form, onBack }) {
               <option key={option.trim()}>{option.trim()}</option>
             )}
           </select>
-        : <input type="text" id={field.id} />}
+        : field.type === 'date'
+          ? <input type="date" id={field.id} />
+          : field.type === 'textarea'
+            ? <textarea id={field.id} />
+            : field.type === 'signature'
+              ? <>
+                  <SignatureCanvas
+                    ref={el => { signatures.current[field.id] = el }}
+                    canvasProps={{ id: field.id, className: 'signature-box' }} />
+                  <button type="button" onClick={() => signatures.current[field.id].clear()}>Clear</button>
+                </>
+              : <input type="text" id={field.id} />}
     </div>
   )
   return (

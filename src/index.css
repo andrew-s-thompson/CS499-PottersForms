@@ -34,3 +34,9 @@ body {
   font-size: 14px;
   color: var(--text);
 }
+
+.signature-box {
+  display: block;
+  border: 1px solid var(--outline);
+  border-radius: 10px;
+}

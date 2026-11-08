@@ -15,6 +15,21 @@ export const forms = [
         type: 'select',
         options: 'one, two, three',
         label: 'Select a number:'
+      },
+      {
+        id: 'field3',
+        type: 'date',
+        label: 'Date of Birth:'
+      },
+      {
+        id: 'field4',
+        type: 'textarea',
+        label: 'Additional Information:'
+      },
+      {
+        id: 'field5',
+        type: 'signature',
+        label: 'Signature:'
       }
     ]
   },
@@ -34,6 +49,21 @@ export const forms = [
         type: 'select',
         options: 'one, two, three',
         label: 'Select a number:'
+      },
+      {
+        id: 'field3',
+        type: 'date',
+        label: 'Date of Birth:'
+      },
+      {
+        id: 'field4',
+        type: 'textarea',
+        label: 'Additional Information:'
+      },
+      {
+        id: 'field5',
+        type: 'signature',
+        label: 'Signature:'
       }
     ],
   },
@@ -53,6 +83,21 @@ export const forms = [
         type: 'select',
         options: 'one, two, three',
         label: 'Select a number:'
+      },
+      {
+        id: 'field3',
+        type: 'date',
+        label: 'Date of Birth:'
+      },
+      {
+        id: 'field4',
+        type: 'textarea',
+        label: 'Additional Information:'
+      },
+      {
+        id: 'field5',
+        type: 'signature',
+        label: 'Signature:'
       }
     ],
   },
