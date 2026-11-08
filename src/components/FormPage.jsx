@@ -43,7 +43,7 @@ function FormPage({ form, onBack }) {
       <p>{form.description}</p>
       {displayFields}
       <br></br>
-      <button className="primary">Submit</button>
+      <button type="button" className="primary" onClick={() => alert(form.fields.filter(field => field.type !== 'label').map(field => `${field.label}: ${field.type === 'boolean' ? document.getElementById(field.key).checked : field.type === 'signature' ? !signatures.current[field.key].isEmpty() : document.getElementById(field.key).value}`).join('\n'))}>Submit</button>
     </section>
   )
 }
