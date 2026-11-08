@@ -35,6 +35,24 @@ body {
   color: var(--text);
 }
 
+button:not(.form-card) {
+  background: white;
+  border: 1px solid var(--outline);
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+button.primary {
+  color: white;
+  background: var(--teal);
+  border: none;
+}
+
+.edit-row {
+  display: flex;
+  align-items: center;
+}
+
 .form-text {
   white-space: pre-line;
 }

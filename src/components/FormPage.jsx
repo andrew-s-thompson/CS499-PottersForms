@@ -43,7 +43,7 @@ function FormPage({ form, onBack }) {
       <p>{form.description}</p>
       {displayFields}
       <br></br>
-      <button>Submit</button>
+      <button className="primary">Submit</button>
     </section>
   )
 }

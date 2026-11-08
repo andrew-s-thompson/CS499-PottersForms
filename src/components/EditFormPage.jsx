@@ -10,7 +10,7 @@ function EditFormPage({ form, onSave, onBack }) {
   }
   function renderItems(field, key) {
     return (
-      <div key={key}>
+      <div key={key} className="edit-row">
         {field.type === 'label'
           ? <textarea value={field.label} onChange={(e) => editItem(key, e.target.value)} />
           : <input type="text" value={field.label} onChange={(e) => editItem(key, e.target.value)} />}
@@ -30,7 +30,7 @@ function EditFormPage({ form, onSave, onBack }) {
       <p>{form.description}</p>
       {displayFields}
       <br></br>
-      <button>Submit</button>
+      <button className="primary">Submit</button>
     </section>
   )
 }
