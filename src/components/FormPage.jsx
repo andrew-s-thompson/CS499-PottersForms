@@ -4,27 +4,33 @@ import SignatureCanvas from 'react-signature-canvas'
 function FormPage({ form, onBack }) {
   const signatures = useRef({})
   const displayFields = form.fields.map(field =>
-    <div key={field.id}>
-      <label htmlFor={field.id}>{field.label}</label>
-      {field.type === 'select'
-        ? <select id={field.id}>
-            {field.options.split(',').map(option =>
-              <option key={option.trim()}>{option.trim()}</option>
-            )}
-          </select>
-        : field.type === 'date'
-          ? <input type="date" id={field.id} />
-          : field.type === 'textarea'
-            ? <textarea id={field.id} />
-            : field.type === 'signature'
-              ? <>
-                  <SignatureCanvas
-                    ref={el => { signatures.current[field.id] = el }}
-                    canvasProps={{ id: field.id, className: 'signature-box' }} />
-                  <button type="button" onClick={() => signatures.current[field.id].clear()}>Clear</button>
-                </>
-              : <input type="text" id={field.id} />}
-    </div>
+    field.type === 'label'
+      ? <p key={field.key} className="form-text">{field.label}</p>
+      : <div key={field.key}>
+          <label htmlFor={field.key}>{field.label}</label>
+          {field.type === 'select'
+            ? <select id={field.key}>
+                {field.options.map(option =>
+                  <option key={option.trim()}>{option.trim()}</option>
+                )}
+              </select>
+            : field.type === 'date'
+              ? <input type="date" id={field.key} />
+              : field.type === 'textarea'
+                ? <textarea id={field.key} />
+                : field.type === 'boolean'
+                  ? <input type="checkbox" id={field.key} />
+                  : field.type === 'phone'
+                    ? <input type="tel" id={field.key} />
+                    : field.type === 'signature'
+                      ? <>
+                          <SignatureCanvas
+                            ref={el => { signatures.current[field.key] = el }}
+                            canvasProps={{ id: field.key, className: 'signature-box' }} />
+                          <button type="button" onClick={() => signatures.current[field.key].clear()}>Clear</button>
+                        </>
+                      : <input type="text" id={field.key} />}
+        </div>
   )
   return (
     <section className="panel form-page">
