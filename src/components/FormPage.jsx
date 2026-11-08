@@ -3,6 +3,12 @@ import SignatureCanvas from 'react-signature-canvas'
 
 function FormPage({ form, onBack }) {
   const signatures = useRef({})
+  function submitForm(e) {
+    e.preventDefault()
+    alert(form.fields.filter(field => field.type !== 'label').map(field => `${field.label}: ${field.type === 'boolean' ? document.getElementById(field.key).checked : field.type === 'signature' ? !signatures.current[field.key].isEmpty() : document.getElementById(field.key).value}`).join('\n'))
+    e.target.reset()
+    Object.values(signatures.current).forEach(signature => signature.clear())
+  }
   // These display fields go through an if then else chain to display the correct input type based on the input form payload. 
   // Eventually, I might be able to turn every single form type into a reusable component, if they start to have more individual functionality.
   const displayFields = form.fields.map(field =>
@@ -41,9 +47,11 @@ function FormPage({ form, onBack }) {
       </button>
       <h1>{form.title}</h1>
       <p>{form.description}</p>
-      {displayFields}
-      <br></br>
-      <button type="button" className="primary" onClick={() => alert(form.fields.filter(field => field.type !== 'label').map(field => `${field.label}: ${field.type === 'boolean' ? document.getElementById(field.key).checked : field.type === 'signature' ? !signatures.current[field.key].isEmpty() : document.getElementById(field.key).value}`).join('\n'))}>Submit</button>
+      <form onSubmit={submitForm}>
+        {displayFields}
+        <br></br>
+        <button type="submit" className="primary">Submit</button>
+      </form>
     </section>
   )
 }
