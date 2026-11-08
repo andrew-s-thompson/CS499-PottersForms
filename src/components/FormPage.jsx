@@ -2,7 +2,13 @@ function FormPage({ form, onBack }) {
   const displayFields = form.fields.map(field =>
     <div key={field.id}>
       <label>{field.label}</label>
-      <input type="text" />
+      {field.type === 'select'
+        ? <select>
+            {field.options.split(',').map(option =>
+              <option key={option.trim()}>{option.trim()}</option>
+            )}
+          </select>
+        : <input type="text" />}
     </div>
   )
   return (
