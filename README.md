@@ -2,6 +2,44 @@
 ### Andrew Thompson
 ### CS 499 (Web Development)
 
+### The current deployment lives at:
+### https://andrew-s-thompson.github.io/CS499-PottersForms/
+
+To run the project locally, the only required commands are, to copy the path to the project potters-forms folder (e.g. C://Users/<username>/documents/CS499-PottersForms/potters-forms).
+run these in terminal (first, ensure that you have node.js installed)
+`cd C://Users/<username>/documents/CS499-PottersForms/potters-forms`
+`npm run dev` 
+The project should load on a localhost npm server.
+
+## Overview of the architecture:
+### App.jsx:
+The app file brings all of the components together into the user's front-end web interface. It holds some overall states to track admin/home and the specific form in use, plus some functions to toggle the admin state and conditionally pull elements based on the form/admin states.
+
+### Header.jsx:
+The header was designed with the Potter's Wheel color and logo to provide theme that matches their actual website. This is in line with the needs of my senior project as well, and helps support the visual polish, styling, and layout requirements. In the header, there is a button to toggle between admin/home states (the page value is passed as a prop to this button to determine what it says.
+
+### Content.jsx:
+The content component is used to display all of the elements that go on a page without requiring react fragments. (although I still included fragments in the repository for now). The content imports the Header, and allows additional react elements to be passed in as props to be the "children" of Content.
+
+### FormCard.jsx
+FormCard is the component that is conditionally rendered to display on the home page. FormCards are able to be clicked, so they take onSelect as a prop, and it is also designed to display the "card" for every form that is listed in the mock data "/data/forms.js" by accepting the form payload as a prop so it can display the name and description of each when mapped to do so from the form payload.
+
+### FormPage.jsx
+This component is what renders as the child of content when the view is not admin, and a form is selected. onSelect sets the selectedForm state and renders that form in a FormPage. This component does two things mainly. Firstly, it takes the form payload as a prop and sorts through its fields using a long if, then, else if, then, else chain to account for all of the possible form field types. The second part after displaying the fields, is to allow the user to fill them out and submit them with submitForm. (submitForm will eventually post to a database, but currently just displays an alert().
+
+### EditFormPage.jsx
+This component is extremely similar to the FormPage.jsx, but instead of filling out the form, it renders the form payload and allows the user to edit the form by removing fields or changing them. It has a remove, edit item, and edit options function. Right now, these don't persist because the forms payload is just pulled from a "data/forms.js" but eventually a database will store the form types, and the changes should be persistent.
+
+App.jsx
+|-> Content (always renders)
+    |-> Header (has the admin toggle button)
+    |-> FormCard (on click opens the two below depending on admin state)
+        |-> FormPage
+        |-> EditFormPage
+
+Current Limitations:
+There is currently no submission confirmation, because there is not currently a true submission flow. The submission currently is just an alert() popup that says what was submitted. Form submission also does not currently go to a database because no connection to a PostgreSQL database has yet been made.
+
 ## Project Description
 This application plays a role in the Senior Design Project for Potter's Wheel. The senior design project is responsible for digitizing Potter's Wheel collection of forms, and this application will be specifically scoped toward designing the user-facing web interface for digital form submissions. The application is essentially, an online form submission interface, similar to Google Forms or Microsoft Forms, but with custom connections, submitting custom forms completed by users directly to Potter's Wheel Google Drive and corresponding record sheets. 
 Potter's Wheel will benefit from this digitization of form submission. Their current form collection process is to manually print out paper forms, handing them out to the students and parents who will be responsible for filling out and returning the forms in person. One major inconveniences of this process is the responsibility of students and parents to keep track of, fill out, and return paper forms. Another major inconvenience of this form collection is that Potter's Wheel now has numerous 3 inch binders full of completed forms. At any point if they need to check whether a student has completed their form or who still needs to complete forms, the process of manually sorting through all of the papers is tedious, time consuming, and takes away from the time that they can dedicate toward their mission as a nonprofit organization. Therefore, the proposed solution is to collect forms digitally and keep a record sheet of who has completed each form and, therefore, who still needs to. This solution is targeted to easing the form distribution, collection, and record sorting that are associated with the initial process.
