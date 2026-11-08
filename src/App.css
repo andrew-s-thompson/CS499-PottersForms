@@ -11,6 +11,12 @@ header > img {
     width: auto;
 }
 
+.header-button {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+}
+
 .site-main {
   max-width: 1000px;
   margin: -28px auto 0;
