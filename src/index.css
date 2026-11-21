@@ -62,3 +62,14 @@ button.primary {
   border: 1px solid var(--outline);
   border-radius: 10px;
 }
+
+.form-page form > div {
+  display: grid;
+  justify-items: start;
+  gap: 6px;
+  margin-bottom: 20px;
+}
+
+.form-page form > div > :is(input:not([type="checkbox"]), select, textarea) {
+  justify-self: stretch;
+}
