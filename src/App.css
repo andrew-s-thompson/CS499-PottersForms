@@ -11,10 +11,30 @@ header > img {
     width: auto;
 }
 
-.header-button {
+.header-nav {
     position: absolute;
     top: 16px;
     right: 16px;
+    display: flex;
+    gap: 8px;
+}
+
+/* navlinks render as a tags so this will make them look like a button */
+.header-nav a {
+    padding: 4px 10px;
+    font-size: 14px;
+    color: var(--teal);
+    text-decoration: none;
+    background: white;
+    border: 1px solid var(--outline);
+    border-radius: 8px;
+}
+
+/* active button looks different so you can tell what page you're on */
+.header-nav a.active {
+    color: white;
+    background: var(--teal);
+    border-color: white;
 }
 
 .site-main {

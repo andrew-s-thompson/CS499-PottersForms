@@ -1,8 +1,19 @@
 import { useRef } from 'react'
+import { useParams, Link } from 'react-router'
 import SignatureCanvas from 'react-signature-canvas'
 
-function FormPage({ form, onBack }) {
+function FormPage({ forms }) {
+  const { formId } = useParams()
+  const form = forms.find(f => f.formId === formId)
   const signatures = useRef({})
+  if (!form) {
+    return (
+      <section className="panel">
+        <h2>Form Not Found</h2>
+        <Link to="/forms" className="back-link">Back | All forms</Link>
+      </section>
+    )
+  }
   function submitForm(e) {
     e.preventDefault()
     alert(form.fields.filter(field => field.type !== 'label').map(field => `${field.label}: ${field.type === 'boolean' ? document.getElementById(field.key).checked : field.type === 'signature' ? !signatures.current[field.key].isEmpty() : document.getElementById(field.key).value}`).join('\n'))
@@ -42,9 +53,7 @@ function FormPage({ form, onBack }) {
   )
   return (
     <section className="panel form-page">
-      <button type="button" className="link-button" onClick={onBack}>
-        Back | All forms
-      </button>
+      <Link to="/forms" className="back-link">Back | All forms</Link>
       <h1>{form.title}</h1>
       <p>{form.description}</p>
       <form onSubmit={submitForm}>

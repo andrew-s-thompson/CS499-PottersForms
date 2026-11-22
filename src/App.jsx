@@ -1,87 +1,31 @@
 import { useState } from 'react'
-import FormCard from './components/FormCard.jsx'
-import FormPage from './components/FormPage.jsx'
-import EditFormPage from './components/EditFormPage.jsx'
+import { Routes, Route, Navigate } from 'react-router'
+import FormList from './pages/FormList.jsx'
+import FormPage from './pages/FormPage.jsx'
+import EditFormPage from './pages/EditFormPage.jsx'
 import Content from './components/Content.jsx'
 import { payload } from './data/forms.js'
 import './App.css'
 
 function App() {
-  const [selectedForm, setSelectedForm] = useState(null)
-  const [page, setPage] = useState('forms')
   const [formList, setFormList] = useState(payload.forms)
 
   function updateForm(updated) {
     setFormList(prev => prev.map(f => (f.formId === updated.formId ? updated : f)))
-    setSelectedForm(updated)
-  }
-
-  function togglePage() {
-    if (page === 'forms') {
-      setPage('admin');
-    }
-    else {
-      setPage('forms');
-    };
-    return(page);
-  }
-
-  if (page === 'admin' && !selectedForm) {
-    return (
-      <Content page={page} onAdminClick={() => {
-        togglePage() 
-        setSelectedForm(null)}}>
-        <section className="panel">
-          <h1>Admin View</h1>
-          <p>Choose a form to edit:</p>
-          {formList.map((form) => (
-            <FormCard key={form.formId} form={form} onSelect={setSelectedForm} />
-          ))}
-        </section>
-      </Content>
-    )
-  }
-
-  if (selectedForm) {
-    if (page === 'admin') {
-      return (
-        <>
-        <Content page={page} onAdminClick={() => {
-          setPage('forms') 
-          setSelectedForm(null)}}>
-          <EditFormPage form={selectedForm} onSave={updateForm} onBack={() => setSelectedForm(null)} />
-        </Content>
-        </>
-
-      )
-    }
-    return (
-        <>
-        <Content page={page} onAdminClick={() => {
-          setPage('admin') 
-          setSelectedForm(null)}}>
-          <FormPage form={selectedForm} onBack={() => setSelectedForm(null)} />
-        </Content>
-        </>
-    )
   }
 
   return (
-    <>
-    <Content page={page} onAdminClick={() => {
-        togglePage()
-        setSelectedForm(null)}}>
-      <section className="panel">
-      <h1>Forms</h1>
-      <p>Choose a form:</p>
-      {formList.map((form) => (
-        <FormCard key={form.formId} form={form} onSelect={setSelectedForm} />
-      ))}
-      </section>
+    <Content>
+      <Routes>
+        <Route path="/" element={<Navigate to="/forms" replace />} />
+        <Route path="/forms" element={<FormList forms={formList} heading="Forms" prompt="Choose a form:" basePath="/forms" />} />
+        <Route path="/forms/:formId" element={<FormPage forms={formList} />} />
+        <Route path="/admin" element={<FormList forms={formList} heading="Admin View" prompt="Choose a form to edit:" basePath="/admin" />} />
+        <Route path="/admin/:formId" element={<EditFormPage forms={formList} onSave={updateForm} />} />
+        <Route path="*" element={<section className="panel"><h2>404 - Page Not Found</h2></section>} />
+      </Routes>
     </Content>
-    </>
   )
 }
-
 
 export default App

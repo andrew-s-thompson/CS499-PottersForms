@@ -1,12 +1,14 @@
+import { NavLink } from 'react-router'
 import logo from '../assets/pw-logo.webp'
 
-function Header({page, onAdminClick}) {
+function Header() {
   return (
     <header>
       <img src={logo} alt="Potter's Wheel" width="300" height="175" />
-      <button type="button" className="header-button" onClick={onAdminClick}>
-        {page === 'admin' ? 'Back Home' : 'Admin View'}
-      </button>
+      <nav className="header-nav">
+        <NavLink to="/forms">Forms</NavLink>
+        <NavLink to="/admin">Admin View</NavLink>
+      </nav>
     </header>
   )
 }

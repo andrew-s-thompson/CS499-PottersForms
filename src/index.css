@@ -23,6 +23,12 @@ body {
   padding: 16px 18px;
   border: 1px solid var(--outline);
   border-radius: 10px;
+  text-decoration: none;
+}
+
+.back-link {
+  color: var(--teal);
+  text-decoration: none;
 }
 
 .form-card-title {
@@ -35,7 +41,7 @@ body {
   color: var(--text);
 }
 
-button:not(.form-card) {
+button {
   background: white;
   border: 1px solid var(--outline);
   border-radius: 8px;
@@ -70,6 +76,16 @@ button.primary {
   margin-bottom: 20px;
 }
 
+/* Since I'm conditionally rendering multiple items, 
+AI showed that we could use this method to display slightly different layouts for the form elements using CSS conditions. (super awesome) */
 .form-page form > div > :is(input:not([type="checkbox"]), select, textarea) {
   justify-self: stretch;
+}
+
+.form-page form > div:has(> input[type="checkbox"]) {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 8px;
 }
