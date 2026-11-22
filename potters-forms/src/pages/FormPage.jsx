@@ -38,8 +38,12 @@ function FormPage({ forms, loading }) {
         </select>
       : field.type === 'date'
       ? <input type="date" id={field.key} />
-      : field.type === 'textarea'
+      : field.type === 'longtext'
       ? <textarea id={field.key} />
+      : field.type === 'email'
+      ? <input type="email" id={field.key} />
+      : field.type === 'number'
+      ? <input type="number" id={field.key} />
       : field.type === 'boolean'
       ? <input type="checkbox" id={field.key} />
       : field.type === 'phone'
