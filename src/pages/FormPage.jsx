@@ -2,10 +2,13 @@ import { useRef } from 'react'
 import { useParams, Link } from 'react-router'
 import SignatureCanvas from 'react-signature-canvas'
 
-function FormPage({ forms }) {
+function FormPage({ forms, loading }) {
   const { formId } = useParams()
   const form = forms.find(f => f.formId === formId)
   const signatures = useRef({})
+  if (loading) {
+    return <section className="panel"><p>Loading form...</p></section>
+  }
   if (!form) {
     return (
       <section className="panel">

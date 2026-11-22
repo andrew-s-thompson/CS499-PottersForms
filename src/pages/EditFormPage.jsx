@@ -1,8 +1,16 @@
+import { useState } from 'react'
 import { useParams, Link } from 'react-router'
 
-function EditFormPage({ forms, onSave }) {
+function EditFormPage({ forms, loading, onSave }) {
   const { formId } = useParams()
-  const form = forms.find(f => f.formId === formId)
+  // edits are kept in a local draft and only sent to the server when Submit is clicked
+  const [draft, setDraft] = useState(null)
+  const [message, setMessage] = useState('')
+  const saved = forms.find(f => f.formId === formId)
+  const form = draft ?? saved
+  if (loading) {
+    return <section className="panel"><p>Loading form...</p></section>
+  }
   if (!form) {
     return (
       <section className="panel">
@@ -11,14 +19,24 @@ function EditFormPage({ forms, onSave }) {
       </section>
     )
   }
+  function changeFields(fields) {
+    setDraft({ ...form, fields: fields })
+    setMessage('')
+  }
   function removeItem(key) {
-    onSave({ ...form, fields: form.fields.filter(f => f.key !== key) })
+    changeFields(form.fields.filter(f => f.key !== key))
   }
   function editItem(key, newLabel) {
-    onSave({ ...form, fields: form.fields.map(f => f.key === key ? { ...f, label: newLabel } : f) })
+    changeFields(form.fields.map(f => f.key === key ? { ...f, label: newLabel } : f))
   }
   function editOptions(key, options) {
-    onSave({ ...form, fields: form.fields.map(f => f.key === key ? { ...f, options: options } : f) })
+    changeFields(form.fields.map(f => f.key === key ? { ...f, options: options } : f))
+  }
+  async function submitForm() {
+    if (await onSave(form)) {
+      setDraft(null)
+      setMessage('Changes saved.')
+    }
   }
   function renderItems(field, key) {
     return (
@@ -40,9 +58,10 @@ function EditFormPage({ forms, onSave }) {
       <p>{form.description}</p>
       {displayFields}
       <br></br>
-      <button className="primary">Submit</button>
+      <button className="primary" onClick={submitForm} disabled={!draft}>Submit</button>
+      {message && <p>{message}</p>}
     </section>
   )
 }
 
-  export default EditFormPage
+export default EditFormPage

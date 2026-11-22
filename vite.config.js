@@ -4,5 +4,10 @@ import { defineConfig } from 'vite'
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
-  base: '/CS499-PottersForms/'
+  base: '/CS499-PottersForms/',
+  server: {
+    proxy: {
+      '/api': 'http://localhost:3001'
+    }
+  }
 })
