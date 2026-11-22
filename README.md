@@ -5,11 +5,20 @@
 ### The current deployment lives at:
 ### https://andrew-s-thompson.github.io/CS499-PottersForms/
 
-To run the project locally, the only required commands are, to copy the path to the project potters-forms folder (e.g. C://Users/<username>/documents/CS499-PottersForms/potters-forms).
-run these in terminal (first, ensure that you have node.js installed)
+To run the project locally, you need two terminals: one for the backend server and one for the frontend (first, ensure that you have node.js installed).
+The repository has two folders: `server` (the Express backend, which stores forms in `server/forms.json`) and `potters-forms` (the React frontend).
+
+Terminal 1 (backend):
+`cd C://Users/<username>/documents/CS499-PottersForms/server`
+`npm install`
+`npm start`
+
+Terminal 2 (frontend):
 `cd C://Users/<username>/documents/CS499-PottersForms/potters-forms`
-`npm run dev` 
-The project should load on a localhost npm server.
+`npm install`
+`npm run dev`
+
+The project should load on a localhost npm server. The frontend forwards `/api` requests to the backend at http://localhost:3001.
 
 ## Overview of the architecture:
 ### App.jsx:
