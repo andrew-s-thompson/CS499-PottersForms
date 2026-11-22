@@ -4,7 +4,10 @@ function Content({ children }) {
   return (
     <>
       <Header />
-      <main className="site-main">{children}</main>
+      <main className="site-main">
+        {children}
+        <footer className="page-foot">Potter's Wheel Ministries</footer>
+      </main>
     </>
   )
 }

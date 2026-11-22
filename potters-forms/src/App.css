@@ -38,7 +38,13 @@ header > img {
 }
 
 .site-main {
-  max-width: 1000px;
+  max-width: 680px;
   margin: -28px auto 0;
   padding: 0 16px 64px;
+}
+
+.page-foot {
+  text-align: center;
+  color: var(--text);
+  font-size: .82rem;
 }

@@ -15,7 +15,7 @@ function EditFormPage({ forms, loading, onSave }) {
     return (
       <section className="panel">
         <h2>Form Not Found</h2>
-        <Link to="/admin" className="back-link">Back | All forms</Link>
+        <Link to="/admin" className="back-link">All forms</Link>
       </section>
     )
   }
@@ -53,7 +53,7 @@ function EditFormPage({ forms, loading, onSave }) {
   const displayFields = form.fields.map(field => renderItems(field, field.key))
   return (
     <section className="panel form-page">
-      <Link to="/admin" className="back-link">Back | All forms</Link>
+      <Link to="/admin" className="back-link">All forms</Link>
       <h1>{form.title}</h1>
       <p>{form.description}</p>
       {displayFields}

@@ -13,7 +13,7 @@ function FormPage({ forms, loading }) {
     return (
       <section className="panel">
         <h2>Form Not Found</h2>
-        <Link to="/forms" className="back-link">Back | All forms</Link>
+        <Link to="/forms" className="back-link">All forms</Link>
       </section>
     )
   }
@@ -56,7 +56,7 @@ function FormPage({ forms, loading }) {
   )
   return (
     <section className="panel form-page">
-      <Link to="/forms" className="back-link">Back | All forms</Link>
+      <Link to="/forms" className="back-link">All forms</Link>
       <h1>{form.title}</h1>
       <p>{form.description}</p>
       <form onSubmit={submitForm}>
