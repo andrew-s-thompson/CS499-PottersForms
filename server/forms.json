@@ -235,5 +235,99 @@
         "exclude": false
       }
     ]
+  },
+  {
+    "formId": "form-3",
+    "version": 1,
+    "title": "Form 3 New",
+    "description": "",
+    "anonymous": false,
+    "participantKeys": [],
+    "fields": [
+      {
+        "key": "field_1",
+        "label": "Field 1",
+        "type": "text",
+        "required": false,
+        "options": [],
+        "exclude": false
+      },
+      {
+        "key": "field_2",
+        "label": "Field 2",
+        "type": "longtext",
+        "required": false,
+        "options": [],
+        "exclude": false
+      },
+      {
+        "key": "field_3",
+        "label": "Field 3",
+        "type": "date",
+        "required": false,
+        "options": [],
+        "exclude": false
+      },
+      {
+        "key": "field_4",
+        "label": "Field 4",
+        "type": "number",
+        "required": false,
+        "options": [],
+        "exclude": false
+      },
+      {
+        "key": "field_5",
+        "label": "Field 5",
+        "type": "phone",
+        "required": false,
+        "options": [],
+        "exclude": false
+      },
+      {
+        "key": "field_6",
+        "label": "Field 6",
+        "type": "email",
+        "required": false,
+        "options": [],
+        "exclude": false
+      },
+      {
+        "key": "field_7",
+        "label": "Field 7",
+        "type": "select",
+        "required": false,
+        "options": [
+          "Option 1",
+          " Option 2",
+          " Option 3"
+        ],
+        "exclude": false
+      },
+      {
+        "key": "field_8",
+        "label": "Field 8",
+        "type": "boolean",
+        "required": false,
+        "options": [],
+        "exclude": false
+      },
+      {
+        "key": "field_9",
+        "label": "Field 9",
+        "type": "signature",
+        "required": false,
+        "options": [],
+        "exclude": false
+      },
+      {
+        "key": "field_10",
+        "label": "Field 10",
+        "type": "label",
+        "required": false,
+        "options": [],
+        "exclude": false
+      }
+    ]
   }
 ]
