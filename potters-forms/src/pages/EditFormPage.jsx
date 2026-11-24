@@ -33,8 +33,14 @@ function EditFormPage({ forms, loading, onSave, onDelete }) {
   function editOptions(key, options) {
     changeFields(form.fields.map(f => f.key === key ? { ...f, options: options } : f))
   }
+  // the options box is comma separated options, and I found this reference to help explain how to go about that: https://bobbyhadz.com/blog/javascript-split-remove-empty-elements
+  // trim each option first https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/trim
+  function cleanOptions(options) {
+    return options.map(option => option.trim()).filter(option => option)
+  }
   async function submitForm() {
-    if (await onSave(form)) {
+    const cleanedFields = form.fields.map(f => ({ ...f, options: cleanOptions(f.options) }))
+    if (await onSave({ ...form, fields: cleanedFields })) {
       setDraft(null)
       setMessage('Changes saved.')
     }
