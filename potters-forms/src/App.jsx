@@ -45,6 +45,37 @@ function App() {
     }
   }
 
+  async function createForm(form) {
+    try {
+      const response = await fetch('/api/forms', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(form)
+      })
+      if (!response.ok) throw new Error((await response.json()).error)
+      const created = await response.json()
+      setFormList(prev => [...prev, created])
+      setError('')
+      return true
+    } catch (err) {
+      setError(err.message)
+      return false
+    }
+  }
+
+  async function deleteForm(formId) {
+    try {
+      const response = await fetch(`/api/forms/${formId}`, { method: 'DELETE' })
+      if (!response.ok) throw new Error('Could not delete form')
+      setFormList(prev => prev.filter(f => f.formId !== formId))
+      setError('')
+      return true
+    } catch (err) {
+      setError(err.message)
+      return false
+    }
+  }
+
   return (
     <Content>
       {error && <p role="alert" className="panel">{error}</p>}
@@ -52,8 +83,8 @@ function App() {
         <Route path="/" element={<Navigate to="/forms" replace />} />
         <Route path="/forms" element={<FormList forms={formList} loading={loading} heading="Forms" prompt="Choose a form:" basePath="/forms" />} />
         <Route path="/forms/:formId" element={<FormPage forms={formList} loading={loading} />} />
-        <Route path="/admin" element={<FormList forms={formList} loading={loading} heading="Admin View" prompt="Choose a form to edit:" basePath="/admin" />} />
-        <Route path="/admin/:formId" element={<EditFormPage forms={formList} loading={loading} onSave={updateForm} />} />
+        <Route path="/admin" element={<FormList forms={formList} loading={loading} heading="Admin View" prompt="Choose a form to edit:" basePath="/admin" onCreate={createForm} />} />
+        <Route path="/admin/:formId" element={<EditFormPage forms={formList} loading={loading} onSave={updateForm} onDelete={deleteForm} />} />
         <Route path="*" element={<section className="panel"><h2>404 - Page Not Found</h2></section>} />
       </Routes>
     </Content>

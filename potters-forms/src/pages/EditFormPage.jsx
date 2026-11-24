@@ -1,8 +1,9 @@
 import { useState } from 'react'
-import { useParams, Link } from 'react-router'
+import { useParams, Link, useNavigate } from 'react-router'
 
-function EditFormPage({ forms, loading, onSave }) {
+function EditFormPage({ forms, loading, onSave, onDelete }) {
   const { formId } = useParams()
+  const navigate = useNavigate()
   // edits are kept in a local draft and only sent to the server when Submit is clicked
   const [draft, setDraft] = useState(null)
   const [message, setMessage] = useState('')
@@ -38,6 +39,21 @@ function EditFormPage({ forms, loading, onSave }) {
       setMessage('Changes saved.')
     }
   }
+  async function deleteForm() {
+    if (!window.confirm(`Delete "${form.title}"? This cannot be undone.`)) return
+    if (await onDelete(form.formId)) navigate('/admin')
+  }
+  function addField(e) {
+    e.preventDefault()
+    const data = new FormData(e.target)
+    const key = data.get('key')
+    if (form.fields.some(f => f.key === key)) {
+      setMessage('A field with that key already exists.')
+      return
+    }
+    changeFields([...form.fields, { key: key, label: data.get('label'), type: data.get('type'), required: false, options: [], exclude: false }])
+    e.target.reset()
+  }
   function renderItems(field, key) {
     return (
       <div key={key} className="edit-row">
@@ -57,8 +73,19 @@ function EditFormPage({ forms, loading, onSave }) {
       <h1>{form.title}</h1>
       <p>{form.description}</p>
       {displayFields}
+      <form className="edit-row" onSubmit={addField}>
+        <input name="key" placeholder="field_key" pattern="[a-z0-9_]+" title="Lowercase letters, numbers and underscores" required />
+        <input name="label" placeholder="Label" required />
+        <select name="type">
+          {['text', 'longtext', 'date', 'number', 'phone', 'email', 'select', 'boolean', 'signature', 'label'].map(type =>
+            <option key={type}>{type}</option>
+          )}
+        </select>
+        <button type="submit">Add field</button>
+      </form>
       <br></br>
       <button className="primary" onClick={submitForm} disabled={!draft}>Submit</button>
+      <button type="button" onClick={deleteForm}>Delete form</button>
       {message && <p>{message}</p>}
     </section>
   )
